@@ -1,0 +1,14 @@
+version: "3" #This denotes that we are using version 3 of Docker Compose
+services: #This section defines all the different containers we will create.
+  app: #This is the name of our Nextjs application.
+    build:
+      context: . #This is the directory where the Dockerfile is located.
+      dockerfile: docker/app/Dockerfile #This is the name of the Dockerfile.
+    command: dev #command to execute
+            #This is just like the -v option for mounting disks in Docker. In this example, we attach our code files directory to the containers’ ./code              directory.  This way, we won’t have to rebuild the images if changes are           made.
+    ports:
+      - "3000:3000" #This is the port mapping. It maps the port 3000 of the host to the port 3000 of the container.
+    volumes:
+        - .:/usr/src/app
+        - /usr/src/app/node_modules
+        - /usr/src/app/.next
